@@ -42,9 +42,12 @@ public class UserDataUpdateEventDeserializer extends JsonDeserializer<UserDataUp
         userDataUpdateEventType == UserDataUpdateEventType.ACCOUNT_POSITION_UPDATE) {
       AccountUpdateEvent accountUpdateEvent = getUserDataUpdateEventDetail(json, AccountUpdateEvent.class, mapper);
       userDataUpdateEvent.setAccountUpdateEvent(accountUpdateEvent);
-    } else { // userDataUpdateEventType == UserDataUpdateEventType.ORDER_TRADE_UPDATE
+    } else if (userDataUpdateEventType == UserDataUpdateEventType.ORDER_TRADE_UPDATE){
       OrderTradeUpdateEvent orderTradeUpdateEvent = getUserDataUpdateEventDetail(json, OrderTradeUpdateEvent.class, mapper);
       userDataUpdateEvent.setOrderTradeUpdateEvent(orderTradeUpdateEvent);
+    } else {
+      DupEvent dupEvent = getUserDataUpdateEventDetail(json, DupEvent.class, mapper);
+      userDataUpdateEvent.setDupEvent(dupEvent);
     }
 
     return userDataUpdateEvent;

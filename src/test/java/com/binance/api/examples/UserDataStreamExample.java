@@ -31,7 +31,7 @@ public class UserDataStreamExample {
         AccountUpdateEvent accountUpdateEvent = response.getAccountUpdateEvent();
         // Print new balances of every available asset
         System.out.println(accountUpdateEvent.getBalances());
-      } else {
+      } else if (response.getEventType()==UserDataUpdateEventType.ORDER_TRADE_UPDATE){
         OrderTradeUpdateEvent orderTradeUpdateEvent = response.getOrderTradeUpdateEvent();
         // Print details about an order/trade
         System.out.println(orderTradeUpdateEvent);
@@ -41,6 +41,8 @@ public class UserDataStreamExample {
 
         // Or price
         System.out.println(orderTradeUpdateEvent.getPrice());
+      } else {
+        System.out.println("event received: "+response.getEventType());
       }
     });
     System.out.println("Waiting for events...");
